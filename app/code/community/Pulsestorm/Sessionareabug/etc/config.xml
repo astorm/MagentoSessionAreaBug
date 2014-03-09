@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<modules>
+		<Pulsestorm_Sessionareabug>
+			<version>0.1.0</version>
+		</Pulsestorm_Sessionareabug>
+	</modules>
+	<frontend>
+		<routers>
+			<pulsestorm_sessionareabug>
+				<use>standard</use>
+				<args>
+					<module>Pulsestorm_Sessionareabug</module>
+					<frontName>pulsestorm_sessionareabug</frontName>
+				</args>
+			</pulsestorm_sessionareabug>
+		</routers>
+	</frontend>
+	<global>
+        <events>
+          <controller_front_init_before>
+            <observers>
+              <sessionareabug_example>
+                <type>singleton</type>
+                <class>Pulsestorm_Sessionareabug_Model_Observer</class>
+                <method>earlySession</method>
+              </sessionareabug_example>
+            </observers>
+          </controller_front_init_before>
+        </events>
+
+	
+		<blocks>
+			<pulsestorm_sessionareabug>
+				<class>Pulsestorm_Sessionareabug_Block</class>
+			</pulsestorm_sessionareabug>
+		</blocks>
+		<models>
+			<pulsestorm_sessionareabug>
+				<class>Pulsestorm_Sessionareabug_Model</class>
+			</pulsestorm_sessionareabug>
+		</models>
+		<helpers>
+			<pulsestorm_sessionareabug>
+				<class>Pulsestorm_Sessionareabug_Helper</class>
+			</pulsestorm_sessionareabug>
+		</helpers>
+	</global>
+</config>
