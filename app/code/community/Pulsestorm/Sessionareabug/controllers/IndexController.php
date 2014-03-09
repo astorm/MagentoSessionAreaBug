@@ -2,8 +2,8 @@
 class Pulsestorm_Sessionareabug_IndexController extends Mage_Core_Controller_Front_Action {
     public function _getMainContent()
     {
-        $url = '/pulsestorm_sessionareabug/index/special';
-        $url_admin = '/admin';
+        $url = Mage::getUrl('pulsestorm_sessionareabug/index/special');
+        $url_admin = Mage::getUrl('adminhtml');
         $string = <<<CONTENT
 <h1>Reproduction Steps</h1>        
 <p><strong>Step 1</strong>: Clear all the cookies for your domain.</p>
@@ -12,18 +12,17 @@ class Pulsestorm_Sessionareabug_IndexController extends Mage_Core_Controller_Fro
 
 <p><strong>Step 2</strong>: Reload this page, and then view your cookies.  You should have a cookie named <code>frontend</code></p>
 
-<p><img src="http://alanstorm.com/2014/images/early-session-harmful/extension/step-1.png" border="0" width="800" height="398" /></p>
+<p><img src="http://alanstorm.com/2014/images/early-session-harmful/extension/step-2.png" border="0" width="800" height="398" /></p>
 
-<p><strong>Step 3</strong>: Load the <a href="$url_admin">admin login form</a>
- login form, and then view your cookies.  You should have a cookie named <code>adminhtml</code></p>
+<p><strong>Step 3</strong>: Load the <a href="$url_admin">admin login form</a>, and then view your cookies.  You should have a cookie named <code>adminhtml</code></p>
 
-<p><img src="http://alanstorm.com/2014/images/early-session-harmful/extension/step-1.png" border="0" width="800" height="398" /></p>
+<p><img src="http://alanstorm.com/2014/images/early-session-harmful/extension/step-3.png" border="0" width="800" height="398" /></p>
 
 <p><strong>Step 4</strong>: Load the <a href="$url">special page</a>.  There's an event observer configured for the "early" event.  In this observer, a <code>core/session</code> object is instantiated if the url matches the <a href="$url">special page</a>.  Now, view your cookies.</p>
 
-<p><img src="http://alanstorm.com/2014/images/early-session-harmful/extension/step-1.png" border="0" width="800" height="398" /></p>
+<p><img src="http://alanstorm.com/2014/images/early-session-harmful/extension/step-4.png" border="0" width="800" height="398" /></p>
 
-<p>A cookie named <code>PHPSESSID</code> is set.  The use of a session before Magento can determine the area (<code>frontend</code> or <code>adminhtml</code>) means the default session name is used, and so this special page ends up reading and writing from a different session ID.         </p>
+<p>A cookie named <code>PHPSESSID</code> is set.  The use of a session before Magento can determine the area (<code>frontend</code> or <code>adminhtml</code>) means the default session name is used, and so this special page ends up reading and writing from/to a different session store, and to the client programmer it appears as though the original session data is lost. </p>
 
 <h2>Dumped <code>session_id()</code></h2>
 CONTENT;
